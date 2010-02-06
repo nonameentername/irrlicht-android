@@ -2974,5 +2974,20 @@ IVideoDriver* createOGLES1Driver(const SIrrlichtCreationParameters& params,
 }
 #endif // _IRR_COMPILE_WITH_IPHONE_DEVICE_
 
+// -----------------------------------
+// ANDROID VERSION
+// -----------------------------------
+#if defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+IVideoDriver* createOGLES1Driver(const SIrrlichtCreationParameters& params,
+		video::SExposedVideoData& data, io::IFileSystem* io)
+{
+#ifdef _IRR_COMPILE_WITH_OGLES1_
+	return new COGLES1Driver(params, data, io);
+#else
+	return 0;
+#endif // _IRR_COMPILE_WITH_OGLES1_
+}
+#endif // _IRR_COMPILE_WITH_ANDROID_DEVICE_
+
 } // end namespace
 } // end namespace

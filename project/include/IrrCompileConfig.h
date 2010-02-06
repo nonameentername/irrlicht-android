@@ -104,9 +104,11 @@
 //++ ellis ++ #define _IRR_COMPILE_WITH_X11_DEVICE_
 //++ ellis ++ // Three lines added for android
 #define _IRR_ANDROID_PLATEFORM_
-#define _IRR_IPHONE_PLATFORM_ 
-#define _IRR_USE_IPHONE_DEVICE_
+#define _IRR_COMPILE_WITH_ANDROID_DEVICE_
 #define _IRR_COMPILE_WITH_OGLES1_
+
+//#define _IRR_IPHONE_PLATFORM_ 
+//#define _IRR_USE_IPHONE_DEVICE_
 #endif
 
 //! Define _IRR_COMPILE_WITH_JOYSTICK_SUPPORT_ if you want joystick events.

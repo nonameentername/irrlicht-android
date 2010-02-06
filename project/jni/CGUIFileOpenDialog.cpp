@@ -310,6 +310,12 @@ void CGUIFileOpenDialog::draw()
 	IGUIElement::draw();
 }
 
+//++ begin android port
+#if defined(_IRR_ANDROID_PLATEFORM_)
+//#define wchar_t _wchar_t_
+#define mbstowcs(w,m,x) mbsrtowcs(w,(const char**)(& #m),x,NULL)
+#endif
+//++ end 
 
 //! fills the listbox with files.
 void CGUIFileOpenDialog::fillListBox()

@@ -46,6 +46,10 @@ static long sTimeStopped  = 0;
 int importGLInit();
 void importGLDeinit();
 
+IVideoDriver* driver = NULL;
+ISceneManager* smgr = NULL;
+IGUIEnvironment* guienv = NULL;
+
 static long
 _getTime(void)
 {
@@ -66,7 +70,7 @@ Java_com_example_SanAngeles_DemoRenderer_nativeInit( JNIEnv*  env )
     sDemoStopped = 0;
     sTimeOffsetInit = 0;
 
-	IrrlichtDevice *device = createDevice( video::EDT_OGLES1, dimension2d<u32>(640, 480), 16,
+	IrrlichtDevice *device = createDevice( video::EDT_OGLES1, dimension2d<u32>(320, 480), 16,
 	                        false, false, false, 0);
 
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "createDevice r=%d", device);
@@ -99,11 +103,13 @@ Java_com_example_SanAngeles_DemoRenderer_nativeInit( JNIEnv*  env )
 	                node->setMaterialFlag(EMF_LIGHTING, false);
 	                node->setMD2Animation(scene::EMAT_STAND);
 	                node->setMaterialTexture( 0, driver->getTexture("/sdcard/sydney.bmp") );
+					__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "add texture");
 	        }
 	
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
+	smgr->addCameraSceneNode(0, vector3df(0,10,-40), vector3df(0,5,0));
 	
-	driver->beginScene(true, true, SColor(255,100,101,140));
+	// SColor is the background color
+	driver->beginScene(true, true, SColor(255,0,0,0));
 
 	smgr->drawAll();
 	guienv->drawAll();
