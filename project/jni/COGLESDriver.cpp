@@ -127,6 +127,7 @@ COGLES1Driver::COGLES1Driver(const SIrrlichtCreationParameters& params,
 	if (params.Vsync)
 		eglSwapInterval(EglDisplay, 1);
 #elif defined(_IRR_ANDROID_PLATEFORM_)
+	genericDriverInit(params.WindowSize, params.Stencilbuffer);
 //TODO: ellis
 #elif defined(GL_VERSION_ES_CM_1_0)
 	glGenFramebuffersOES(1, &ViewFramebuffer);

@@ -46,9 +46,13 @@ static long sTimeStopped  = 0;
 int importGLInit();
 void importGLDeinit();
 
+int counter = 0;
+IrrlichtDevice *device = NULL;
 IVideoDriver* driver = NULL;
 ISceneManager* smgr = NULL;
 IGUIEnvironment* guienv = NULL;
+IAnimatedMesh* mesh = NULL;
+IAnimatedMeshSceneNode* node = NULL;
 
 static long
 _getTime(void)
@@ -70,33 +74,33 @@ Java_com_example_SanAngeles_DemoRenderer_nativeInit( JNIEnv*  env )
     sDemoStopped = 0;
     sTimeOffsetInit = 0;
 
-	IrrlichtDevice *device = createDevice( video::EDT_OGLES1, dimension2d<u32>(320, 480), 16,
+	device = createDevice( video::EDT_OGLES1, dimension2d<u32>(320, 480), 16,
 	                        false, false, false, 0);
 
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "createDevice r=%d", device);
 
-    IVideoDriver* driver = device->getVideoDriver();
+    driver = device->getVideoDriver();
 
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "getVideoDriver r=%d", driver);
 
-    ISceneManager* smgr = device->getSceneManager();
+    smgr = device->getSceneManager();
 
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "getSceneManager r=%d", smgr);
 
-    IGUIEnvironment* guienv = device->getGUIEnvironment();
+    guienv = device->getGUIEnvironment();
 
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "getGUIEnvironment r=%d", guienv);
 
     if (!device) return;
 
-	IAnimatedMesh* mesh = smgr->getMesh("/sdcard/sydney.md2");
+	mesh = smgr->getMesh("/sdcard/sydney.md2");
 	        if (!mesh)
 	        {
 	                device->drop();
 					__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "cannot getMesh");
 					return;
 	        }
-	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
+	node = smgr->addAnimatedMeshSceneNode( mesh );
 	
 	if (node)
 	        {
@@ -158,6 +162,7 @@ void
 Java_com_example_SanAngeles_DemoRenderer_nativeRender( JNIEnv*  env )
 {
     long   curTime;
+	counter ++ ;
 
     /* NOTE: if sDemoStopped is TRUE, then we re-render the same frame
      *       on each iteration.
@@ -172,6 +177,16 @@ Java_com_example_SanAngeles_DemoRenderer_nativeRender( JNIEnv*  env )
             curTime         = 0;
         }
     }
+	if (node) {
+		node->setPosition(core::vector3df(0,0,counter));	
+	}
+
+	driver->beginScene(true, true, SColor(255,0,0,0));
+
+	smgr->drawAll();
+	guienv->drawAll();
+
+	driver->endScene();
 }
     //__android_log_print(ANDROID_LOG_INFO, "SanAngeles", "curTime=%ld", curTime);
 
