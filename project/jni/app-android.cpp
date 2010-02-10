@@ -52,7 +52,8 @@ IVideoDriver* driver = NULL;
 ISceneManager* smgr = NULL;
 IGUIEnvironment* guienv = NULL;
 IAnimatedMesh* mesh = NULL;
-IAnimatedMeshSceneNode* node = NULL;
+ISceneNode* node = NULL;
+ICameraSceneNode* camera = NULL;
 
 static long
 _getTime(void)
@@ -92,7 +93,28 @@ Java_com_example_SanAngeles_DemoRenderer_nativeInit( JNIEnv*  env )
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "getGUIEnvironment r=%d", guienv);
 
     if (!device) return;
+    
+    device->getFileSystem()->addZipFileArchive("/sdcard/map-20kdm2.pk3");
+    
+    mesh = smgr->getMesh("20kdm2.bsp");
 
+    if (mesh) {
+        __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "mesh available");
+        node = smgr->addOctreeSceneNode(mesh->getMesh(0), 0, -1, 1024);
+    } else {
+        __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "mesh not available");        
+    }
+        
+    if (node) {
+        __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "node available");
+        node->setPosition(core::vector3df(-1300,-144,-1249));
+    } else {
+        __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "node not available");
+    }
+        
+    camera = smgr->addCameraSceneNodeFPS();    
+    
+/*
 	mesh = smgr->getMesh("/sdcard/sydney.md2");
 	        if (!mesh)
 	        {
@@ -119,7 +141,7 @@ Java_com_example_SanAngeles_DemoRenderer_nativeInit( JNIEnv*  env )
 	guienv->drawAll();
 
 	driver->endScene();	
-	
+	*/
 }
 
 
@@ -177,8 +199,10 @@ Java_com_example_SanAngeles_DemoRenderer_nativeRender( JNIEnv*  env )
             curTime         = 0;
         }
     }
+	
 	if (node) {
-		node->setPosition(core::vector3df(0,0,counter));	
+		node->setPosition(core::vector3df(-1300,-144,-1249));
+        camera->setRotation(core::vector3df(0, counter, 0));	
 	}
 
 	driver->beginScene(true, true, SColor(255,0,0,0));

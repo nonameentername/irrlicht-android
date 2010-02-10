@@ -26,7 +26,8 @@ BZIP2OBJ = bzip2/blocksort.c bzip2/huffman.c bzip2/crctable.c bzip2/randtable.c 
 ANDROID = importgl.cpp app-android.cpp CIrrDeviceAndroid.cpp
 LOCAL_MODULE := irrlicht
 
-LOCAL_CFLAGS := -DANDROID_NDK -DDISABLE_IMPORTGL -Iapps/irrlicht/project/include/
+LOCAL_ARM_MODE   := arm 
+LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -Iapps/irrlicht/project/include/
 
 LOCAL_SRC_FILES := \
      $(ANDROID) \
