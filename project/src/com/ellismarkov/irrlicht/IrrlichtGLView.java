@@ -12,10 +12,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**  IrrlichtGLView */
 class IrrlichtGLView extends GLSurfaceView {
-    private IrrlichtBench mActivity;
+    private IrrlichtTest mActivity;
     private IrrlichtEvent lastEvent;
 
-    public IrrlichtGLView(IrrlichtBench activity) {
+    public IrrlichtGLView(IrrlichtTest activity) {
         super(activity);
         mActivity = activity;
         mRenderer = new IrrlichtRenderer(activity);
@@ -41,12 +41,12 @@ class IrrlichtGLView extends GLSurfaceView {
 }
 
 class IrrlichtRenderer implements GLSurfaceView.Renderer {
-    private IrrlichtBench mActivity;
+    private IrrlichtTest mActivity;
     private int mWindowWidth;
     private int mWindowHeight;
     private IrrlichtStatus mStatus;
 
-    public IrrlichtRenderer(IrrlichtBench activity) {
+    public IrrlichtRenderer(IrrlichtTest activity) {
         mActivity = activity;
         mStatus = new IrrlichtStatus();
         mStatus.mQuit = false;

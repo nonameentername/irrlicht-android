@@ -31,30 +31,30 @@ IVideoDriver* driver = NULL;
 extern "C" {
 
 /** Activity onCreate */
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeOnCreate( JNIEnv*  env )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnCreate( JNIEnv*  env )
 {
     
 }
 
 /** Activity onPause */
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeOnPause( JNIEnv*  env )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnPause( JNIEnv*  env )
 {
 
 }
 
 /** Activity onResume */
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeOnResume( JNIEnv*  env )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnResume( JNIEnv*  env )
 {
     
 }
 
 /** Activity onDestroy */
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeOnDestroy( JNIEnv*  env )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnDestroy( JNIEnv*  env )
 {
     importGLDeinit();
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeInitGL( JNIEnv*  env )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeInitGL( JNIEnv*  env )
 {
     importGLInit();
     device = createDevice( video::EDT_OGLES1, dimension2d<u32>(gWindowWidth, gWindowHeight), 16, false, false, false, 0);
@@ -69,7 +69,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeInitGL( JNIEnv*  env )
         __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "No driver");
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeResize( JNIEnv*  env, jobject  thiz, jint w, jint h )
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeResize( JNIEnv*  env, jobject  thiz, jint w, jint h )
 {
     __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "resize w=%d h=%d", w, h);
     gWindowWidth  = w;
@@ -80,7 +80,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeResize( JNIEnv*  env, job
     device->getVideoDriver()->OnResize(size);
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeSendEvent( JNIEnv*  env, jobject defaultObj, jobject event) 
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeSendEvent( JNIEnv*  env, jobject defaultObj, jobject event) 
 {
     jclass classEvent = env->GetObjectClass(event);
     jfieldID fieldAction = env->GetFieldID(classEvent, "mAction", "I");
@@ -115,7 +115,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeSendEvent( JNIEnv*  env, 
     }    
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeGetStatus(JNIEnv*  env, jobject defaultObj, jobject status) 
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeGetStatus(JNIEnv*  env, jobject defaultObj, jobject status) 
 {
     if (gAppAlive==0) {
         jclass classStatus = env->GetObjectClass(status);
@@ -125,7 +125,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeGetStatus(JNIEnv*  env, j
 }
 
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeEnvJ2C(JNIEnv*  env, jobject defaultObj, jstring jsdcardPath) 
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeEnvJ2C(JNIEnv*  env, jobject defaultObj, jstring jsdcardPath) 
 {
     char ligne[1024+1];
     const char *msg = env->GetStringUTFChars(jsdcardPath,0);
@@ -134,7 +134,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeEnvJ2C(JNIEnv*  env, jobj
     env->ReleaseStringUTFChars(jsdcardPath,msg);
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtBench_nativeDrawIteration( JNIEnv*  env ) 
+void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeDrawIteration( JNIEnv*  env ) 
 {
     nativeDrawIteration();   
 }

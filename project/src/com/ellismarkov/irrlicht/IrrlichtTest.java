@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import java.io.IOException;
 
 /** */
-public class IrrlichtBench extends Activity {
+public class IrrlichtTest extends Activity {
 
     private IrrlichtGLView mGLView;
 
