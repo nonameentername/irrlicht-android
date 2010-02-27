@@ -23,7 +23,7 @@ JPEGLIBOBJ = jpeglib/jcapimin.c jpeglib/jcapistd.c jpeglib/jccoefct.c jpeglib/jc
 LIBPNGOBJ = libpng/png.c libpng/pngerror.c libpng/pngget.c libpng/pngmem.c libpng/pngpread.c libpng/pngread.c libpng/pngrio.c libpng/pngrtran.c libpng/pngrutil.c libpng/pngset.c libpng/pngtrans.c libpng/pngwio.c libpng/pngwrite.c libpng/pngwtran.c libpng/pngwutil.c
 LIBAESGM = aesGladman/aescrypt.cpp aesGladman/aeskey.cpp aesGladman/aestab.cpp aesGladman/fileenc.cpp aesGladman/hmac.cpp aesGladman/prng.cpp aesGladman/pwd2key.cpp aesGladman/sha1.cpp aesGladman/sha2.cpp
 BZIP2OBJ = bzip2/blocksort.c bzip2/huffman.c bzip2/crctable.c bzip2/randtable.c bzip2/bzcompress.c bzip2/decompress.c bzip2/bzlib.c
-ANDROID = importgl.cpp app-android.cpp CIrrDeviceAndroid.cpp
+ANDROID = importgl.cpp app-android.cpp android-activity.cpp android-receiver.cpp CIrrDeviceAndroid.cpp
 LOCAL_MODULE := irrlicht
 
 LOCAL_ARM_MODE   := arm 

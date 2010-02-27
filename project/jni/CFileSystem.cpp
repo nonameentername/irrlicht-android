@@ -28,7 +28,7 @@
 		#include <io.h> // for _access
 	#endif
 #else
-	#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_))
+	#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_) || defined(_IRR_ANDROID_PLATEFORM_))
 		#include <stdio.h>
 		#include <stdlib.h>
 		#include <string.h>
@@ -367,7 +367,7 @@ const io::path& CFileSystem::getWorkingDirectory()
 			#endif
 		#endif
 
-		#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_))
+		#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_) || defined(_IRR_ANDROID_PLATEFORM_))
 
 			// getting the CWD is rather complex as we do not know the size
 			// so try it until the call was successful
@@ -436,11 +436,7 @@ bool CFileSystem::changeWorkingDirectoryTo(const io::path& newDirectory)
 	#endif
 #else
 
-#if defined(_IRR_ANDROID_PLATEFORM_)
-		success=false;
-#else
 		success=(chdir(newDirectory.c_str()) == 0);
-#endif
 
 #endif
 	}
@@ -466,7 +462,7 @@ io::path CFileSystem::getAbsolutePath(const io::path& filename) const
 		tmp.replace('\\', '/');
 	#endif
 	return tmp;
-#elif (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_))
+#elif (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_) || defined(_IRR_ANDROID_PLATEFORM_))
 	c8* p=0;
 	c8 fpath[4096];
 	fpath[0]=0;
@@ -642,7 +638,7 @@ IFileList* CFileSystem::createFileList()
 
 		// --------------------------------------------
 		//! Linux version
-		#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_))
+		#if (defined(_IRR_POSIX_API_) || defined(_IRR_OSX_PLATFORM_) || defined(_IRR_ANDROID_PLATEFORM_))
 
 
 		r = new CFileList(Path, false, false);
@@ -759,13 +755,11 @@ bool CFileSystem::existFile(const io::path& filename) const
 #endif
 #else
 
-#if defined(_IRR_ANDROID_PLATEFORM_)
-#else
 	return (access(filename.c_str(), F_OK) != -1);
-#endif
 
 #endif
 #endif
+	return false;
 }
 
 

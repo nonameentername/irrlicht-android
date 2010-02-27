@@ -6,6 +6,8 @@
 #include "CIrrDeviceAndroid.h"
 
 #ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+
+#include "os.h"
 	
 #include <android/log.h>
 
@@ -70,6 +72,7 @@ void CIrrDeviceAndroid::createDriver()
 
 bool CIrrDeviceAndroid::run()
 {
+    os::Timer::tick();
 	return true;
 }
 
