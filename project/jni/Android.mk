@@ -27,7 +27,7 @@ ANDROID = importgl.cpp app-android.cpp android-activity.cpp android-receiver.cpp
 LOCAL_MODULE := irrlicht
 
 LOCAL_ARM_MODE   := arm 
-LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -Iapps/irrlicht/project/include/
+LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -I./../include/ -I./include/
 
 LOCAL_SRC_FILES := \
      $(ANDROID) \
