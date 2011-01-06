@@ -117,7 +117,12 @@ void initSydney()
 {
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
-    
+ 
+    stringc myDir = gSdCardPath;
+    myDir += "/Irrlicht";
+    device->getFileSystem()->changeWorkingDirectoryTo(myDir.c_str());
+
+   
     
     stringc sydneyFilename = "/Irrlicht/sydney.md2";
 	mesh = smgr->getMesh( (gSdCardPath+sydneyFilename).c_str() );
@@ -157,7 +162,6 @@ void initIrr() {
     
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
-
     stringc _3dsFilename = "/Irrlicht/room.3ds";    
     mesh = smgr->getMesh( (gSdCardPath+_3dsFilename).c_str() );
     __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "mesh: %d", mesh);
@@ -211,7 +215,7 @@ void nativeDrawIterationSydney()
     }
 	
 	// SColor is the background color
-	driver->beginScene(true, true, SColor(255,0,0,0));
+	driver->beginScene(true, true, SColor(255,255,0,0));
 
 	smgr->drawAll();
 	guienv->drawAll();
@@ -222,7 +226,7 @@ void nativeDrawIterationSydney()
 
 
 	int fps = driver->getFPS();
-    __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "fps=%d", fps);
+    __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "Sydney fps=%d", fps);
 
 }
 
@@ -262,7 +266,7 @@ void nativeDrawIterationIrr()
 	
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "Load irr scene");
     
-	driver->beginScene(true, true, SColor(255,0,0,0));
+	driver->beginScene(true, true, SColor(255,255,0,0));
 
 	smgr->drawAll();
 	guienv->drawAll();

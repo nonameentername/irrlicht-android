@@ -13,7 +13,8 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #elif defined(_IRR_ANDROID_PLATEFORM_)
-#include "importgl.h"
+#include <GLES/gl.h>
+#include <GLES/glext.h>
 #else
 #include <GLES/egl.h>
 #include <GLES/gl.h>

@@ -57,7 +57,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnDestroy( JNIEnv*  env )
 void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeInitGL( JNIEnv*  env )
 {
     importGLInit();
-    device = createDevice( video::EDT_OGLES1, dimension2d<u32>(gWindowWidth, gWindowHeight), 16, false, false, false, 0);
+    device = createDevice( video::EDT_OGLES2, dimension2d<u32>(gWindowWidth, gWindowHeight), 16, false, false, false, 0);
     driver = device->getVideoDriver();
     
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "createDevice r=%d w=%d h=%d", device, gWindowWidth, gWindowHeight);

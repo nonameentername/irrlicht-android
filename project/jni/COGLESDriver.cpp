@@ -22,6 +22,10 @@ int GL_BGRA=GL_RGBA;
 #include <SDL/SDL.h>
 #endif
 
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+#include <android/log.h>
+#endif
+
 namespace irr
 {
 namespace video
@@ -405,6 +409,7 @@ bool COGLES1Driver::beginScene(bool backBuffer, bool zBuffer, SColor color,
 	}
 
 	glClear(mask);
+    __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "beginScene");
 	return true;
 }
 

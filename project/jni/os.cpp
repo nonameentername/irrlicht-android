@@ -30,6 +30,10 @@
 	#define bswap_32(X) ( (((X)&0x000000FF)<<24) | (((X)&0xFF000000) >> 24) | (((X)&0x0000FF00) << 8) | (((X) &0x00FF0000) >> 8))
 #endif
 
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+#include <android/log.h>
+#endif
+
 namespace irr
 {
 namespace os
@@ -165,26 +169,43 @@ namespace os
 
 	void Printer::log(const c8* message, ELOG_LEVEL ll)
 	{
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+        __android_log_print(ANDROID_LOG_INFO, "log", message);
+#else
 		if (Logger)
 			Logger->log(message, ll);
+#endif
 	}
 
 	void Printer::log(const wchar_t* message, ELOG_LEVEL ll)
 	{
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+        core::stringc msg(message);
+        __android_log_print(ANDROID_LOG_INFO, "log", msg.c_str());
+#else
 		if (Logger)
 			Logger->log(message, ll);
+#endif
 	}
 
 	void Printer::log(const c8* message, const c8* hint, ELOG_LEVEL ll)
 	{
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+        __android_log_print(ANDROID_LOG_INFO, "log", message);
+#else
 		if (Logger)
 			Logger->log(message, hint, ll);
+#endif
 	}
 
 	void Printer::log(const c8* message, const io::path& hint, ELOG_LEVEL ll)
 	{
+#ifdef _IRR_COMPILE_WITH_ANDROID_DEVICE_
+        __android_log_print(ANDROID_LOG_INFO, "log", message);
+#else
 		if (Logger)
 			Logger->log(message, hint.c_str(), ll);
+#endif
 	}
 
 	// our Randomizer is not really os specific, so we
