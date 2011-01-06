@@ -150,8 +150,6 @@ float ComputeFog()
 
 void main (void)
 {
-	gl_FragColor = renderSolid();
-	return;
 	if(varClipDist < 0.0)
 		discard;
 	
