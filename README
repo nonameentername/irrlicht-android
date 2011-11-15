@@ -1,0 +1,7 @@
+This is a fork of the project located here:
+    http://gitorious.org/irrlichtandroid
+
+To build the project run the following script:
+    ./build.sh
+
+You will need the android ndk to build this project
