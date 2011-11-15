@@ -11,7 +11,6 @@ IRROBJ = CBillboardSceneNode.cpp CCameraSceneNode.cpp CDummyTransformationSceneN
 IRRPARTICLEOBJ = CParticleAnimatedMeshSceneNodeEmitter.cpp CParticleBoxEmitter.cpp CParticleCylinderEmitter.cpp CParticleMeshEmitter.cpp CParticlePointEmitter.cpp CParticleRingEmitter.cpp CParticleSphereEmitter.cpp CParticleAttractionAffector.cpp CParticleFadeOutAffector.cpp CParticleGravityAffector.cpp CParticleRotationAffector.cpp CParticleSystemSceneNode.cpp CParticleScaleAffector.cpp
 IRRANIMOBJ = CSceneNodeAnimatorCameraFPS.cpp CSceneNodeAnimatorCameraMaya.cpp CSceneNodeAnimatorCollisionResponse.cpp CSceneNodeAnimatorDelete.cpp CSceneNodeAnimatorFlyCircle.cpp CSceneNodeAnimatorFlyStraight.cpp CSceneNodeAnimatorFollowSpline.cpp CSceneNodeAnimatorRotation.cpp CSceneNodeAnimatorTexture.cpp
 IRRDRVROBJ = CNullDriver.cpp COGLESDriver.cpp COGLESTexture.cpp COGLESExtensionHandler.cpp
-IRRDRVOBJ2 = COGLES2Driver.cpp COGLES2FixedPipelineShader.cpp COGLES2ParallaxMapRenderer.cpp COGLES2SLMaterialRenderer.cpp COGLES2ExtensionHandler.cpp COGLES2NormalMapRenderer.cpp COGLES2Renderer2D.cpp COGLES2Texture.cpp
 
 IRRIMAGEOBJ = CColorConverter.cpp CImage.cpp CImageLoaderBMP.cpp CImageLoaderJPG.cpp CImageLoaderPCX.cpp CImageLoaderPNG.cpp CImageLoaderPSD.cpp CImageLoaderTGA.cpp CImageLoaderPPM.cpp CImageLoaderWAL.cpp CImageLoaderRGB.cpp CImageWriterBMP.cpp CImageWriterJPG.cpp CImageWriterPCX.cpp CImageWriterPNG.cpp CImageWriterPPM.cpp CImageWriterPSD.cpp CImageWriterTGA.cpp
 IRRVIDEOOBJ = CVideoModeList.cpp CFPSCounter.cpp $(IRRDRVROBJ) $(IRRIMAGEOBJ)
@@ -29,17 +28,17 @@ ANDROID = importgl.cpp app-android.cpp android-activity.cpp android-receiver.cpp
 LOCAL_MODULE := irrlicht
 
 LOCAL_ARM_MODE   := arm 
-LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -I./../include/ -I./include/
+LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -I$(LOCAL_PATH)/../include/ -I$(LOCAL_PATH)/include/
 
 LOCAL_SRC_FILES := \
      $(ANDROID) \
-     $(IRRVIDEOOBJ) $(IRRDRVOBJ2) \
+     $(IRRVIDEOOBJ) \
      $(IRRMESHOBJ) $(IRROBJ) $(IRRPARTICLEOBJ) $(IRRANIMOBJ) \
      $(IRRSWRENDEROBJ) $(IRRIOOBJ) $(IRROTHEROBJ) \
      $(IRRGUIOBJ) $(ZLIBOBJ) $(JPEGLIBOBJ) $(LIBPNGOBJ) $(LIBAESGM) \
      $(BZIP2OBJ)
 
 
-LOCAL_LDLIBS := -lGLESv1_CM -ldl -llog -lGLESv2
+LOCAL_LDLIBS := -lGLESv1_CM -ldl -llog
 
 include $(BUILD_SHARED_LIBRARY)

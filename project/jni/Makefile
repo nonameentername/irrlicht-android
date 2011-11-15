@@ -56,7 +56,7 @@ LINKOBJ = $(IRRMESHOBJ) $(IRROBJ) $(IRRPARTICLEOBJ) $(IRRANIMOBJ) \
 #Compiler flags
 OGLESINCLUDES = -I$(HOME)/irrlicht/SDKPackage-ogles1/Builds/OGLES/Include -I$(HOME)/irrlicht/SDKPackage-ogles1/Builds/OGLES/LinuxPC/Include
 OGLESLINK = -L$(HOME)/irrlicht/SDKPackage-ogles1/Builds/OGLES/LinuxPC/Lib -lGLES_CM
-CXXINCS = -I../../include -Izlib -Ijpeglib -Ilibpng
+CXXINCS = -I../include -Izlib -Ijpeglib -Ilibpng
 CPPFLAGS += $(CXXINCS) $(OGLESINCLUDES) -DIRRLICHT_EXPORTS=1
 CXXFLAGS += -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 ifndef NDEBUG
