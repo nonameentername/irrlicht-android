@@ -28,10 +28,9 @@ ANDROID = importgl.cpp CIrrDeviceAndroid.cpp
 LOCAL_MODULE := irrlicht
 
 LOCAL_ARM_MODE   := arm 
-LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -I$(LOCAL_PATH)/../../include/ -I$(LOCAL_PATH)/../include/
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../include  $(LOCAL_PATH)../include/ $(LOCAL_PATH)
-
-$(info LOCAL_PATH $(LOCAL_PATH)/../../include)
+#LOCAL_CFLAGS := -O3 -DANDROID_NDK -DDISABLE_IMPORTGL -I$(LOCAL_PATH)/../../include/ -I$(LOCAL_PATH)/../include/
+LOCAL_CFLAGS := -g -O0 -fno-inline -DANDROID_NDK -DDISABLE_IMPORTGL -I$(LOCAL_PATH)/../../include/ -I$(LOCAL_PATH)/../include/
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../include  $(LOCAL_PATH)
 
 LOCAL_SRC_FILES := \
      $(ANDROID) \
