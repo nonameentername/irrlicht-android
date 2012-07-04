@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <irrlicht.h>
+#include "NativeIrrlicht.h"
 
 using namespace irr;
 
@@ -12,6 +13,7 @@ using namespace gui;
 
 int importGLInit();
 void importGLDeinit();
+void initSydney();
 void nativeDrawIteration();
 
 // global variables
@@ -25,39 +27,31 @@ IrrlichtDevice *device = NULL;
 IVideoDriver* driver = NULL;
 
 
-
-
-/* For JNI: C++ compiler need this */
-extern "C" {
-
-/** Activity onCreate */
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnCreate( JNIEnv*  env )
-{
-    
+NativeIrrlicht::NativeIrrlicht() {
 }
 
-/** Activity onPause */
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnPause( JNIEnv*  env )
-{
-
+NativeIrrlicht::~NativeIrrlicht() {
 }
 
-/** Activity onResume */
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnResume( JNIEnv*  env )
-{
-    
+void NativeIrrlicht::onCreate() {
 }
 
-/** Activity onDestroy */
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeOnDestroy( JNIEnv*  env )
-{
+void NativeIrrlicht::onPause() {
+}
+
+void NativeIrrlicht::onResume() {
+}
+
+void NativeIrrlicht::onDestroy() {
     importGLDeinit();
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeInitGL( JNIEnv*  env )
-{
+void NativeIrrlicht::init() {
+}
+
+void NativeIrrlicht::initGL(int w, int h) {
     importGLInit();
-    device = createDevice( video::EDT_OGLES1, dimension2d<u32>(gWindowWidth, gWindowHeight), 16, false, false, false, 0);
+    device = createDevice( video::EDT_OGLES1, dimension2d<u32>(w, h), 16, false, false, false, 0);
     driver = device->getVideoDriver();
     
 	__android_log_print(ANDROID_LOG_INFO, "Irrlicht", "createDevice r=%d w=%d h=%d", device, gWindowWidth, gWindowHeight);
@@ -67,10 +61,11 @@ void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeInitGL( JNIEnv*  env )
         __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "No device");
     if (!driver)
         __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "No driver");
+
+    initSydney();
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeResize( JNIEnv*  env, jobject  thiz, jint w, jint h )
-{
+void NativeIrrlicht::onResize(int w, int h) {
     __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "resize w=%d h=%d", w, h);
     gWindowWidth  = w;
     gWindowHeight = h;
@@ -80,16 +75,7 @@ void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeResize( JNIEnv*  env, jobj
     device->getVideoDriver()->OnResize(size);
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeSendEvent( JNIEnv*  env, jobject defaultObj, jobject event) 
-{
-    jclass classEvent = env->GetObjectClass(event);
-    jfieldID fieldAction = env->GetFieldID(classEvent, "mAction", "I");
-    jfieldID fieldX = env->GetFieldID(classEvent, "mX", "F");
-    jfieldID fieldY = env->GetFieldID(classEvent, "mY", "F");
-    int action = env->GetIntField(event, fieldAction);
-    // convert Android coord to OpenGL coords
-    float x = env->GetFloatField(event, fieldX);
-    float y = env->GetFloatField(event, fieldY);
+void NativeIrrlicht::sendEvent(int action, float x, float y) {
     SEvent irrevent;
     irrevent.MouseInput.ButtonStates = 0xffffffff;
     irrevent.EventType = irr::EET_MOUSE_INPUT_EVENT;
@@ -115,28 +101,19 @@ void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeSendEvent( JNIEnv*  env, j
     }    
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeGetStatus(JNIEnv*  env, jobject defaultObj, jobject status) 
-{
+bool NativeIrrlicht::getStatus() {
     if (gAppAlive==0) {
-        jclass classStatus = env->GetObjectClass(status);
-        jfieldID fieldStatus = env->GetFieldID(classStatus, "mQuit", "Z");
-        env->SetBooleanField(status, fieldStatus, true);
-    }    
+        return true;
+    } else {
+        return false;
+    }
 }
 
-
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeEnvJ2C(JNIEnv*  env, jobject defaultObj, jstring jsdcardPath) 
-{
-    char ligne[1024+1];
-    const char *msg = env->GetStringUTFChars(jsdcardPath,0);
-    gSdCardPath = msg;
+void NativeIrrlicht::setPath(std::string path) {
+    gSdCardPath = path.c_str();
     __android_log_print(ANDROID_LOG_INFO, "Irrlicht", "not handled %s", gSdCardPath.c_str());
-    env->ReleaseStringUTFChars(jsdcardPath,msg);
 }
 
-void Java_com_ellismarkov_irrlicht_IrrlichtTest_nativeDrawIteration( JNIEnv*  env ) 
-{
+void NativeIrrlicht::drawIteration() {
     nativeDrawIteration();   
-}
-
 }

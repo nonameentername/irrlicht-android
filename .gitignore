@@ -1,2 +1,8 @@
+.classpath
+.project
+bin
+gen
+libs
 project/local.properties
 project/obj/
+project/src/org/tecunhuman/irrlicht/jni

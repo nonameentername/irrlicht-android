@@ -1,4 +1,4 @@
-package com.ellismarkov.irrlicht;
+package org.tecunhuman.irrlicht;
 
 import java.io.*;
 import java.math.BigInteger;

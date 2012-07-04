@@ -1,7 +1,7 @@
 /*
  *
  */
-package com.ellismarkov.irrlicht;
+package org.tecunhuman.irrlicht;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -29,50 +29,37 @@ public class IrrlichtTest extends Activity {
         } catch (IOException e) {
             Log.i("Irrlicht", "Error in unpack");
         }
-        nativeEnvJ2C(Environment.getExternalStorageDirectory().getAbsolutePath());
+        AndroidJNI.irrlicht.setPath(Environment.getExternalStorageDirectory().getAbsolutePath());
         mGLView = new IrrlichtGLView(this);
         setContentView(mGLView);
-        nativeOnCreate();
+        
+        AndroidJNI.irrlicht.init();
+        AndroidJNI.irrlicht.onCreate();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mGLView.onPause();
-        nativeOnPause();
+        AndroidJNI.irrlicht.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mGLView.onResume();
-        nativeOnResume();
+        AndroidJNI.irrlicht.onResume();
     }
 
     @Override    
     public void onDestroy() {
-        nativeOnDestroy();
+        AndroidJNI.irrlicht.onDestroy();
         super.onDestroy();
     }
 
-    /** load irrlicht.so */
     static {
         System.loadLibrary("irrlicht");
-    }
-
-    public native void nativeOnCreate();
-    public native void nativeOnPause();
-    public native void nativeOnResume();
-    public native void nativeOnDestroy();
-
-    public native void nativeInitGL();
-    public native void nativeResize(int w, int h);
-
-    public native void nativeGetStatus(IrrlichtStatus status);
-    public native void nativeSendEvent(IrrlichtEvent event);
-    public native void nativeEnvJ2C(String sdcardPath);
-
-    public static native void nativeDrawIteration();
-    
+        System.loadLibrary("nativeirrlicht");
+    }    
 }
 
