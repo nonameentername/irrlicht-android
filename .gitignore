@@ -6,3 +6,5 @@ libs
 project/local.properties
 project/obj/
 project/src/org/tecunhuman/irrlicht/jni
+project/lint.xml
+project/AndroidManifest.out.xml
